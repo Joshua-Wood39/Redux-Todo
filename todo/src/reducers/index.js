@@ -1,19 +1,28 @@
 import { ADD_NEW_TODO, DELETE_TODO, TOGGLE_TODO} from '../actions';
 
-const initialState = {
+
+
+export const initialState = {
     todo: []
 }
 
 export const reducer = (state = initialState, action) => { 
     switch(action.type) {
         case ADD_NEW_TODO:
+            const newTodo = {
+                value: action.payload,
+                id: Date.now(),
+                completed: false
+            };
+            updateLocalStore(newTodo);
             return {
                 ...state,
-                todo: [...state.todo, {value: action.payload, completed: false, id: Date.now()}]
-
+                todo: [...state.todo, newTodo]
             }
+            
 
         case DELETE_TODO:
+            
             return {
                 ...state,
                 todo: state.todo.filter(item => item.completed !== true)
@@ -35,4 +44,8 @@ export const reducer = (state = initialState, action) => {
         default:
             return state;
     }
+}
+
+const updateLocalStore = object => {
+    localStorage.setItem("TodoList", object)
 }

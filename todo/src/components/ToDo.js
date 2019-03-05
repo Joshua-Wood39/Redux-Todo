@@ -8,6 +8,8 @@ class ToDo extends React.Component {
         inputText:''
     }
 
+    
+
     handleAdd = e => {
         e.preventDefault();
         this.props.addNewTodo(this.state.inputText);
